@@ -1,13 +1,8 @@
 
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
-import { Lock } from 'lucide-react';
 
-interface FooterProps {
-  onAdminClick: () => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
+const Footer: React.FC = () => {
   return (
     <footer className="bg-black py-16 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -24,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
             <a href="#sobre" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Sobre</a>
           </div>
 
-          <div className="text-center md:text-right space-y-4">
+          <div className="text-center md:text-right">
             <div className="flex flex-col md:items-end">
               <p className="text-gray-500 text-xs">
                 © {new Date().getFullYear()} Dr. Matheus Fernandes.
@@ -33,12 +28,6 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
                 CRO-GO: 12345
               </p>
             </div>
-            <button 
-              onClick={onAdminClick}
-              className="inline-flex items-center gap-2 text-gray-700 hover:text-yellow-900 transition-colors text-[9px] uppercase tracking-[0.3em]"
-            >
-              <Lock size={10} /> Área Restrita
-            </button>
           </div>
         </div>
       </div>
