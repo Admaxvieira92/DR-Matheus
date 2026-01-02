@@ -28,10 +28,10 @@ const Footer: React.FC = () => {
                 <p className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest">
                   CRO-GO: 12345
                 </p>
-                {/* Botão invisível para acesso admin */}
+                {/* Acesso Admin Oculto (Ponto discreto) */}
                 <a 
                   href="#admin" 
-                  className="text-[8px] text-white/5 hover:text-white/10 transition-colors"
+                  className="text-[10px] text-white/5 hover:text-white/20 transition-colors cursor-default select-none"
                   aria-hidden="true"
                 >
                   .
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
       
-      {/* Decoration */}
+      {/* Visual Decoration */}
       <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-yellow-900/10 rounded-full blur-[100px]" />
     </footer>
   );

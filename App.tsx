@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import AdminPanel from './components/AdminPanel';
 
 const App: React.FC = () => {
+  // Inicializa como falso explicitamente para garantir que o site carregue primeiro
   const [isAdminView, setIsAdminView] = useState(false);
 
   useEffect(() => {
@@ -19,18 +20,22 @@ const App: React.FC = () => {
       setIsAdminView(window.location.hash === '#admin');
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // Checa no carregamento inicial
+    // Verifica o hash no carregamento inicial
+    handleHashChange();
 
+    // Ouve mudanças na URL para alternar entre site e admin
+    window.addEventListener('hashchange', handleHashChange);
+    
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const closeAdmin = () => {
+    // Limpa o hash para voltar ao site principal
     window.location.hash = '';
     setIsAdminView(false);
   };
 
-  // Se o hash for #admin, renderiza o painel CMS diretamente, sem tela de login
+  // Se o hash for #admin, renderiza o painel CMS diretamente
   if (isAdminView) {
     return (
       <div className="min-h-screen bg-[#050505] animate-fade-in">
@@ -39,6 +44,7 @@ const App: React.FC = () => {
     );
   }
 
+  // Renderização padrão: Landing Page (Site do Dentista)
   return (
     <div className="min-h-screen bg-[#0a0a0a] overflow-x-hidden selection:bg-yellow-600/30 selection:text-yellow-200">
       <div className="animate-fade-in">
