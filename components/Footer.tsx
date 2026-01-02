@@ -24,9 +24,19 @@ const Footer: React.FC = () => {
               <p className="text-gray-500 text-xs">
                 © {new Date().getFullYear()} Dr. Matheus Fernandes.
               </p>
-              <p className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest">
-                CRO-GO: 12345
-              </p>
+              <div className="flex items-center md:justify-end gap-2">
+                <p className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest">
+                  CRO-GO: 12345
+                </p>
+                {/* Botão invisível para acesso admin */}
+                <a 
+                  href="#admin" 
+                  className="text-[8px] text-white/5 hover:text-white/10 transition-colors"
+                  aria-hidden="true"
+                >
+                  .
+                </a>
+              </div>
             </div>
           </div>
         </div>

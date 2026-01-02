@@ -17,9 +17,7 @@ import {
   ExternalLink,
   Phone,
   Calendar,
-  Layers,
-  ChevronRight,
-  Link as LinkIcon
+  ChevronRight
 } from 'lucide-react';
 
 type Tab = 'servicos' | 'depoimentos' | 'galeria' | 'agendamentos';
@@ -75,7 +73,6 @@ const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     if (item) {
       setFormData({ ...item });
     } else {
-      // Campos iniciais de acordo com as tabelas solicitadas
       if (activeTab === 'servicos') {
         setFormData({ titulo: '', descricao: '', icone: 'Sparkles', imagem_url: '', ordem: data.length });
       } else if (activeTab === 'galeria') {
@@ -107,11 +104,6 @@ const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
   };
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    onClose();
-  };
-
   return (
     <div className="fixed inset-0 z-[100] bg-[#050505] flex overflow-hidden animate-fade-in">
       {/* Sidebar Lateral */}
@@ -132,10 +124,10 @@ const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         </nav>
 
         <div className="p-4 mt-auto border-t border-white/5">
-          <button onClick={onClose} className="w-full flex items-center gap-3 px-4 py-3 text-xs font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all mb-2">
+          <button onClick={onClose} className="w-full flex items-center gap-3 px-4 py-3 text-xs font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">
             <ExternalLink size={16} /> Ver Site
           </button>
-          <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 text-xs font-bold text-red-500 hover:bg-red-500/10 rounded-xl transition-all">
+          <button onClick={onClose} className="w-full mt-2 flex items-center gap-3 px-4 py-3 text-xs font-bold text-red-500 hover:bg-red-500/10 rounded-xl transition-all">
             <LogOut size={16} /> Sair
           </button>
         </div>
@@ -229,30 +221,28 @@ const AdminPanel: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
             <form onSubmit={handleSave} className="p-10 space-y-6">
               {activeTab === 'servicos' && (
-                <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Título</label>
-                      <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none" value={formData.titulo || ''} onChange={e => setFormData({...formData, titulo: e.target.value})} required />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Ícone (Nome Lucide)</label>
-                      <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.icone || ''} onChange={e => setFormData({...formData, icone: e.target.value})} placeholder="Ex: Sparkles, Stethoscope" />
-                    </div>
-                    <div className="space-y-2 md:col-span-2">
-                      <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">URL da Imagem</label>
-                      <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.imagem_url || ''} onChange={e => setFormData({...formData, imagem_url: e.target.value})} />
-                    </div>
-                    <div className="space-y-2 md:col-span-2">
-                      <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Descrição</label>
-                      <textarea className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white h-24 resize-none" value={formData.descricao || ''} onChange={e => setFormData({...formData, descricao: e.target.value})} required />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Ordem</label>
-                      <input type="number" className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.ordem || 0} onChange={e => setFormData({...formData, ordem: parseInt(e.target.value)})} />
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Título</label>
+                    <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none" value={formData.titulo || ''} onChange={e => setFormData({...formData, titulo: e.target.value})} required />
                   </div>
-                </>
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Ícone (Nome Lucide)</label>
+                    <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.icone || ''} onChange={e => setFormData({...formData, icone: e.target.value})} placeholder="Ex: Sparkles, Stethoscope" />
+                  </div>
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">URL da Imagem</label>
+                    <input className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.imagem_url || ''} onChange={e => setFormData({...formData, imagem_url: e.target.value})} />
+                  </div>
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Descrição</label>
+                    <textarea className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white h-24 resize-none" value={formData.descricao || ''} onChange={e => setFormData({...formData, descricao: e.target.value})} required />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase font-bold text-gray-500 tracking-widest">Ordem</label>
+                    <input type="number" className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white" value={formData.ordem || 0} onChange={e => setFormData({...formData, ordem: parseInt(e.target.value)})} />
+                  </div>
+                </div>
               )}
 
               {activeTab === 'galeria' && (
