@@ -134,14 +134,50 @@ const Contact: React.FC = () => {
                 placeholder="Seu nome"
                 className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none"
               />
-              <input 
-                required
-                type="tel"
-                name="whatsapp"
-                value={formData.whatsapp}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <input 
+                  required
+                  type="tel"
+                  name="whatsapp"
+                  value={formData.whatsapp}
+                  onChange={handleChange}
+                  placeholder="WhatsApp"
+                  className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none"
+                />
+                <input 
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="E-mail"
+                  className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none"
+                />
+              </div>
+              <select
+                name="servico"
+                value={formData.servico}
                 onChange={handleChange}
-                placeholder="WhatsApp"
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none"
+                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none appearance-none"
+              >
+                <option value="" disabled>Selecione um serviço</option>
+                {serviceOptions.map(opt => (
+                  <option key={opt.id} value={opt.titulo} className="bg-[#111]">{opt.titulo}</option>
+                ))}
+                {serviceOptions.length === 0 && (
+                  <>
+                    <option value="Implantes">Implantes</option>
+                    <option value="Lentes de Contato">Lentes de Contato</option>
+                    <option value="Clareamento">Clareamento</option>
+                  </>
+                )}
+              </select>
+              <textarea 
+                name="mensagem"
+                value={formData.mensagem}
+                onChange={handleChange}
+                placeholder="Como podemos ajudar?"
+                rows={4}
+                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:border-yellow-600 outline-none resize-none"
               />
               <button 
                 disabled={loading}
