@@ -50,8 +50,9 @@ const Services: React.FC = () => {
     <section id="tratamentos" className="py-24 bg-[#0a0a0a] scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-4xl mx-auto">
-          <h2 className="text-yellow-500 font-medium tracking-[0.2em] uppercase mb-4">Tratamentos</h2>
-          <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Serviços Exclusivos</h3>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+            Tratamentos / Serviços Exclusivos
+          </h2>
           <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
             Especialista em Implantes e Prótese Dentária. Reabilitação Oral e Estética com os seguintes tratamentos odontológicos:
           </p>

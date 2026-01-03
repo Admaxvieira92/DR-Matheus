@@ -22,9 +22,8 @@ const About: React.FC = () => {
           </div>
 
           <div className="lg:w-1/2">
-            <h2 className="text-yellow-500 font-medium tracking-[0.2em] uppercase mb-4">Sobre o Profissional</h2>
             <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-              {CONTACT_INFO.name}
+              Sobre o Profissional – {CONTACT_INFO.name}
             </h3>
             <p className="text-gray-400 text-lg mb-8 leading-relaxed">
               Dedicado a oferecer o que há de mais moderno na odontologia estética, o Dr. Matheus Fernandes une técnica apurada e um olhar artístico para proporcionar resultados que vão além de um sorriso bonito – buscamos a harmonia facial completa.

@@ -49,12 +49,9 @@ const Gallery: React.FC = () => {
     <section id="galeria" className="py-24 bg-[#0a0a0a] scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="flex justify-center mb-4">
-            <span className="bg-yellow-600/10 text-yellow-500 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-yellow-600/20">
-              Portfólio de Resultados
-            </span>
-          </div>
-          <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">A Arte de Transformar</h3>
+          <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+            Portfólio de Resultados / A Arte de Transformar
+          </h3>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
             Cada sorriso é único. Explore nossa galeria de procedimentos realizados pelo Dr. Matheus Fernandes.
           </p>
