@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
 import { Lock } from 'lucide-react';
@@ -8,6 +7,14 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-black py-16 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -18,10 +25,10 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
           </div>
           
           <div className="flex flex-wrap justify-center gap-6">
-            <a href="#home" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Início</a>
-            <a href="#servicos" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Serviços</a>
-            <a href="#galeria" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Galeria</a>
-            <a href="#sobre" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Sobre</a>
+            <a href="#topo" onClick={(e) => handleNavClick(e, 'topo')} className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Início</a>
+            <a href="#tratamentos" onClick={(e) => handleNavClick(e, 'tratamentos')} className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Serviços</a>
+            <a href="#galeria" onClick={(e) => handleNavClick(e, 'galeria')} className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Galeria</a>
+            <a href="#sobre" onClick={(e) => handleNavClick(e, 'sobre')} className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Sobre</a>
           </div>
 
           <div className="text-center md:text-right space-y-4">

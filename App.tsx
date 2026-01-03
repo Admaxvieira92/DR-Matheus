@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -12,25 +11,9 @@ import Login from './components/Login';
 import AdminPanel from './components/AdminPanel';
 import { supabase } from './supabaseClient';
 
-const ErrorFallback = () => (
-  <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4 text-center">
-    <div className="max-w-md">
-      <h1 className="text-2xl font-serif text-yellow-500 mb-4">Dr. Matheus Fernandes</h1>
-      <p className="text-gray-400 mb-6">Ops! Tivemos um pequeno problema ao carregar a página.</p>
-      <button 
-        onClick={() => window.location.reload()}
-        className="bg-yellow-600 text-black px-8 py-3 rounded-full font-bold hover:bg-yellow-700 transition-colors"
-      >
-        RECARREGAR PÁGINA
-      </button>
-    </div>
-  </div>
-);
-
-const AppContent: React.FC = () => {
+const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
   const [isAdminView, setIsAdminView] = useState(window.location.hash === '#admin');
-  const [isAuthChecking, setIsAuthChecking] = useState(true);
 
   useEffect(() => {
     const checkHash = () => {
@@ -39,18 +22,10 @@ const AppContent: React.FC = () => {
 
     window.addEventListener('hashchange', checkHash);
 
-    const initAuth = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user ?? null);
-      } catch (e) {
-        console.error("Auth init error", e);
-      } finally {
-        setIsAuthChecking(false);
-      }
-    };
-
-    initAuth();
+    // Inicialização da sessão do Supabase
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
@@ -74,7 +49,7 @@ const AppContent: React.FC = () => {
   if (isAdminView) {
     return (
       <div className="min-h-screen bg-[#050505]">
-        {!user && !isAuthChecking ? (
+        {!user ? (
           <Login onClose={closeAdmin} />
         ) : (
           <AdminPanel onClose={closeAdmin} />
@@ -84,7 +59,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-yellow-600/30 overflow-x-hidden">
+    <div className="min-h-screen bg-[#0a0a0a] text-white selection:bg-yellow-600/30">
       <Navbar />
       <main>
         <Hero />
@@ -111,29 +86,6 @@ const AppContent: React.FC = () => {
         </div>
       </a>
     </div>
-  );
-};
-
-const App: React.FC = () => {
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() => {
-    const handleError = (error: ErrorEvent) => {
-      console.error("Global error caught:", error);
-      setHasError(true);
-    };
-    window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
-  }, []);
-
-  if (hasError) {
-    return <ErrorFallback />;
-  }
-
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a]" />}>
-      <AppContent />
-    </Suspense>
   );
 };
 

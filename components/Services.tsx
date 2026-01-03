@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import * as LucideIcons from 'lucide-react';
@@ -27,7 +26,6 @@ const Services: React.FC = () => {
         setServices(data || []);
       } catch (err) {
         console.error('Erro ao carregar serviços:', err);
-        // Fallback para não quebrar a UI
         setServices([]);
       } finally {
         setLoading(false);
@@ -49,7 +47,7 @@ const Services: React.FC = () => {
   };
 
   return (
-    <section id="servicos" className="py-24 bg-[#0a0a0a]">
+    <section id="tratamentos" className="py-24 bg-[#0a0a0a] scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-4xl mx-auto">
           <h2 className="text-yellow-500 font-medium tracking-[0.2em] uppercase mb-4">Tratamentos</h2>

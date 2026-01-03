@@ -1,11 +1,18 @@
-
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
 import { ArrowRight } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const handleInternalLink = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section id="home" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
+    <section id="topo" className="relative h-screen min-h-[700px] flex items-center overflow-hidden scroll-mt-24">
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
       
@@ -33,7 +40,8 @@ const Hero: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row gap-4">
             <a 
-              href="#servicos"
+              href="#tratamentos"
+              onClick={(e) => handleInternalLink(e, 'tratamentos')}
               className="group bg-yellow-600 hover:bg-yellow-700 text-black px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 transition-all transform hover:scale-105 shadow-lg shadow-yellow-600/20"
             >
               NOSSOS SERVIÇOS

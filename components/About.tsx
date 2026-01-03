@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
 
 const About: React.FC = () => {
   return (
-    <section id="sobre" className="py-24 bg-[#111]">
+    <section id="sobre" className="py-24 bg-[#111] scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-1/2 relative">
@@ -14,12 +13,8 @@ const About: React.FC = () => {
                 src={CONTACT_INFO.profileImage} 
                 alt={CONTACT_INFO.name}
                 className="w-full aspect-square object-cover rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
-                onError={(e) => {
-                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=800';
-                }}
               />
             </div>
-            {/* Experience Badge */}
             <div className="absolute -bottom-6 -right-6 bg-yellow-600 text-black p-6 rounded-2xl font-bold shadow-xl">
               <p className="text-3xl">Anápolis</p>
               <p className="text-xs uppercase tracking-widest opacity-80">Referência Local</p>
@@ -33,9 +28,6 @@ const About: React.FC = () => {
             </h3>
             <p className="text-gray-400 text-lg mb-8 leading-relaxed">
               Dedicado a oferecer o que há de mais moderno na odontologia estética, o Dr. Matheus Fernandes une técnica apurada e um olhar artístico para proporcionar resultados que vão além de um sorriso bonito – buscamos a harmonia facial completa.
-            </p>
-            <p className="text-gray-400 text-lg mb-10 leading-relaxed">
-              Nossa clínica em Anápolis foi projetada para oferecer uma experiência VIP, com conforto absoluto e atendimento personalizado desde o primeiro contato até o pós-tratamento.
             </p>
             
             <div className="grid grid-cols-2 gap-8 mb-10">

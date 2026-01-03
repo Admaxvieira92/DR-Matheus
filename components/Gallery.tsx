@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { Camera, RefreshCw } from 'lucide-react';
@@ -26,7 +25,6 @@ const Gallery: React.FC = () => {
       if (data && data.length > 0) {
         setItems(data);
       } else {
-        // Fallback caso a tabela esteja vazia
         setItems([
           { id: '1', titulo: 'Reabilitação Oral', categoria: 'Estética', imagem_url: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800' },
           { id: '2', titulo: 'Lentes de Contato', categoria: 'Porcelana', imagem_url: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=80&w=800' },
@@ -48,7 +46,7 @@ const Gallery: React.FC = () => {
   }, []);
 
   return (
-    <section id="galeria" className="py-24 bg-[#0a0a0a]">
+    <section id="galeria" className="py-24 bg-[#0a0a0a] scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <div className="flex justify-center mb-4">
@@ -78,7 +76,6 @@ const Gallery: React.FC = () => {
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1 opacity-60 group-hover:opacity-100 grayscale group-hover:grayscale-0"
                 />
                 
-                {/* Overlay Informativo */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0">
                    <div className="bg-yellow-600 w-10 h-1 mb-4 rounded-full"></div>
                    <span className="text-yellow-500 text-xs font-bold tracking-[0.2em] uppercase mb-2">
@@ -93,7 +90,6 @@ const Gallery: React.FC = () => {
                    </div>
                 </div>
 
-                {/* Corner Decoration */}
                 <div className="absolute top-4 right-4 border border-yellow-600/30 w-12 h-12 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                    <div className="w-1 h-1 bg-yellow-600 rounded-full animate-ping"></div>
                 </div>
@@ -101,14 +97,6 @@ const Gallery: React.FC = () => {
             ))}
           </div>
         )}
-        
-        <div className="mt-16 bg-[#111] border border-white/5 p-8 rounded-3xl text-center max-w-3xl mx-auto">
-          <p className="text-gray-500 italic text-sm leading-relaxed">
-            As imagens apresentadas são de pacientes reais que autorizaram a divulgação. 
-            Lembramos que cada caso é único e os resultados podem variar. 
-            Consulte sempre um profissional qualificado para o seu diagnóstico.
-          </p>
-        </div>
       </div>
     </section>
   );
