@@ -31,7 +31,7 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
             <a href="#sobre" onClick={(e) => handleNavClick(e, 'sobre')} className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Sobre</a>
           </div>
 
-          <div className="text-center md:text-right space-y-4">
+          <div className="text-center md:text-right">
             <div className="flex flex-col md:items-end">
               <p className="text-gray-500 text-xs">
                 © {new Date().getFullYear()} Dr. Matheus Fernandes.
@@ -40,13 +40,17 @@ const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
                 CROGO 18485
               </p>
             </div>
-            <button 
-              onClick={onAdminClick}
-              className="inline-flex items-center gap-2 text-gray-700 hover:text-yellow-900 transition-colors text-[9px] uppercase tracking-[0.3em]"
-            >
-              <Lock size={10} /> Área Restrita
-            </button>
           </div>
+        </div>
+
+        {/* Nova posição da Área Restrita: Centralizada e discreta ao fundo */}
+        <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+          <button 
+            onClick={onAdminClick}
+            className="inline-flex items-center gap-2 text-gray-800 hover:text-yellow-900 transition-colors text-[9px] uppercase tracking-[0.4em] opacity-50 hover:opacity-100"
+          >
+            <Lock size={10} /> Área Restrita
+          </button>
         </div>
       </div>
       
