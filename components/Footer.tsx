@@ -1,8 +1,13 @@
 
 import React from 'react';
 import { CONTACT_INFO } from '../constants';
+import { Lock } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onAdminClick: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onAdminClick }) => {
   return (
     <footer className="bg-black py-16 border-t border-white/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -19,30 +24,26 @@ const Footer: React.FC = () => {
             <a href="#sobre" className="text-gray-400 hover:text-yellow-500 transition-colors text-xs uppercase tracking-widest font-bold">Sobre</a>
           </div>
 
-          <div className="text-center md:text-right">
+          <div className="text-center md:text-right space-y-4">
             <div className="flex flex-col md:items-end">
               <p className="text-gray-500 text-xs">
                 © {new Date().getFullYear()} Dr. Matheus Fernandes.
               </p>
-              <div className="flex items-center md:justify-end gap-2">
-                <p className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest">
-                  CRO-GO: 12345
-                </p>
-                {/* Acesso Admin Oculto (Ponto discreto) */}
-                <a 
-                  href="#admin" 
-                  className="text-[10px] text-white/5 hover:text-white/20 transition-colors cursor-default select-none"
-                  aria-hidden="true"
-                >
-                  .
-                </a>
-              </div>
+              <p className="text-gray-600 text-[10px] mt-1 uppercase tracking-widest">
+                CROGO 18485
+              </p>
             </div>
+            <button 
+              onClick={onAdminClick}
+              className="inline-flex items-center gap-2 text-gray-700 hover:text-yellow-900 transition-colors text-[9px] uppercase tracking-[0.3em]"
+            >
+              <Lock size={10} /> Área Restrita
+            </button>
           </div>
         </div>
       </div>
       
-      {/* Visual Decoration */}
+      {/* Decoration */}
       <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-yellow-900/10 rounded-full blur-[100px]" />
     </footer>
   );
