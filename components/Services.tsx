@@ -27,6 +27,8 @@ const Services: React.FC = () => {
         setServices(data || []);
       } catch (err) {
         console.error('Erro ao carregar serviços:', err);
+        // Fallback para não quebrar a UI
+        setServices([]);
       } finally {
         setLoading(false);
       }
@@ -34,13 +36,12 @@ const Services: React.FC = () => {
     fetchServices();
   }, []);
 
-  // Helper para renderizar ícone dinâmico com fallback seguro para evitar crash
   const IconComponent = ({ name }: { name: string }) => {
-    const AllIcons = LucideIcons as any;
-    // Tenta encontrar o ícone por nome, se falhar usa Stethoscope como padrão absoluto
-    const Icon = AllIcons[name] || AllIcons.Stethoscope || (() => null);
-    
     try {
+      const AllIcons = LucideIcons as any;
+      if (!AllIcons) return <LucideIcons.Stethoscope className="w-6 h-6" />;
+      
+      const Icon = AllIcons[name] || AllIcons.Stethoscope;
       return <Icon className="w-6 h-6" />;
     } catch (e) {
       return <LucideIcons.Stethoscope className="w-6 h-6" />;
@@ -65,15 +66,11 @@ const Services: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => (
+            {services.length > 0 ? services.map((service) => (
               <div 
                 key={service.id}
                 className="group relative bg-[#111] border border-white/5 p-8 rounded-3xl overflow-hidden transition-all duration-300 hover:border-yellow-600/30 hover:-translate-y-2 flex flex-col h-full"
               >
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <IconComponent name={service.icone} />
-                </div>
-                
                 <div className="w-14 h-14 bg-yellow-600/10 text-yellow-500 rounded-2xl flex items-center justify-center mb-6 transition-colors group-hover:bg-yellow-600 group-hover:text-black shrink-0">
                   <IconComponent name={service.icone} />
                 </div>
@@ -93,11 +90,16 @@ const Services: React.FC = () => {
                       src={service.imagem_url} 
                       alt={service.titulo} 
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      loading="lazy"
                     />
                   </div>
                 )}
               </div>
-            ))}
+            )) : (
+              <div className="col-span-full text-center text-gray-500 py-10">
+                Nenhum serviço cadastrado no momento.
+              </div>
+            )}
           </div>
         )}
       </div>
