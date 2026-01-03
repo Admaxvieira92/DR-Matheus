@@ -34,10 +34,17 @@ const Services: React.FC = () => {
     fetchServices();
   }, []);
 
-  // Helper para renderizar ícone dinâmico
+  // Helper para renderizar ícone dinâmico com fallback seguro para evitar crash
   const IconComponent = ({ name }: { name: string }) => {
-    const Icon = (LucideIcons as any)[name] || LucideIcons.Stethoscope;
-    return <Icon className="w-6 h-6" />;
+    const AllIcons = LucideIcons as any;
+    // Tenta encontrar o ícone por nome, se falhar usa Stethoscope como padrão absoluto
+    const Icon = AllIcons[name] || AllIcons.Stethoscope || (() => null);
+    
+    try {
+      return <Icon className="w-6 h-6" />;
+    } catch (e) {
+      return <LucideIcons.Stethoscope className="w-6 h-6" />;
+    }
   };
 
   return (

@@ -14,19 +14,24 @@ import { supabase } from './supabaseClient';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<any>(null);
-  // Inicializa o estado diretamente do hash para evitar flashes ou erros de renderização dupla
-  const [isAdminView, setIsAdminView] = useState(window.location.hash === '#admin');
+  const [isAdminView, setIsAdminView] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const handleHashChange = () => {
+    // Sincroniza estado inicial do hash para saber se é admin
+    const checkHash = () => {
       setIsAdminView(window.location.hash === '#admin');
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    
-    // Sincronização inicial da sessão
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+
+    // Recupera sessão inicial do Supabase de forma segura
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      setIsReady(true);
+    }).catch(() => {
+      setIsReady(true);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -34,7 +39,7 @@ const App: React.FC = () => {
     });
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('hashchange', checkHash);
       subscription.unsubscribe();
     };
   }, []);
@@ -48,12 +53,22 @@ const App: React.FC = () => {
     setIsAdminView(false);
   };
 
-  // Se estiver na visão administrativa, renderiza apenas o painel ou login
+  // Previne tela preta/branca enquanto o React inicializa a sessão
+  if (!isReady) {
+    return <div className="min-h-screen bg-[#0a0a0a]" />;
+  }
+
+  // Se estiver no modo admin, renderiza o painel correspondente
   if (isAdminView) {
-    if (!user) {
-      return <Login onClose={closeAdmin} />;
-    }
-    return <AdminPanel onClose={closeAdmin} />;
+    return (
+      <div className="min-h-screen bg-[#050505]">
+        {!user ? (
+          <Login onClose={closeAdmin} />
+        ) : (
+          <AdminPanel onClose={closeAdmin} />
+        )}
+      </div>
+    );
   }
 
   // Visão principal do site
@@ -82,7 +97,7 @@ const App: React.FC = () => {
         >
           <div className="bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             </svg>
           </div>
         </a>
