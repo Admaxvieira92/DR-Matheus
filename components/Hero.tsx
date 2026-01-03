@@ -1,4 +1,4 @@
-import React from 'react';
+import React;
 import { CONTACT_INFO } from '../constants';
 import { ArrowRight } from 'lucide-react';
 
@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
       
       {/* Background Image */}
       <img 
-        src="https://lh3.googleusercontent.com/p/AF1QipN-FG14IJ-lw83cr7fgjNK3IVL6GImHFDsG88G4=s680-w680-h510-rw" 
+        src="https://i.imgur.com/MVS3kDJ.png" 
         alt="Clínica Dr. Matheus Fernandes" 
         className="absolute inset-0 w-full h-full object-cover opacity-40 scale-105 transition-transform duration-[20000ms] hover:scale-100"
       />
